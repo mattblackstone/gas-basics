@@ -92,12 +92,13 @@ function showSidebar() {
 
 function combinations(arr2d:any[][]) {
   const r = [];
-  const max = arr2d.length - 1;
+  const af = arr2d.filter(x => x.length > 0); // no blank arrays allowed
+  const max = af.length - 1;
 
   function helper(arr:any[], i:number) {
-    for (let j = 0, l = arr2d[i].length; j < l; j++) {
-      const a = arr.slice(0); // clone arr
-      a.push(arr2d[i][j]);
+    for (let j = 0, l = af[i].length; j < l; j++) {
+      const a = arr.slice(0);
+      a.push(af[i][j]);
       if (i === max) r.push(a);
       else helper(a, i + 1);
     }

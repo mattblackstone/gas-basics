@@ -1,5 +1,5 @@
 function logActiveSheetData() {
-  Logger.log('active sheet data (rowStart = 2):');
+  Logger.log('active sheet data:');
   Logger.log(getSheetData());
 }
   

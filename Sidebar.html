@@ -10,6 +10,7 @@
       legend { padding: 0 2px; }
       label { padding-right: 4px; }
       fieldset { border-radius: 6px; }
+      #cover { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.75); }
     </style>
   </head>
   <body>
@@ -25,6 +26,7 @@
         <input type="button" value="Write" onclick="writeColumnCombos()">
       </div>
     </div>
+    <div id="cover" style="display: none;"><div style="align-self: center; margin: auto;">Running script...</div></div>
     <script>
       function buildUi(data) {
         var sheetNames = data;
@@ -55,6 +57,7 @@
         var src = document.querySelector('#source-sheet').value;
         var dest = document.querySelector('#destination-sheet').value;
         var header = document.querySelector('#header').checked;
+        document.querySelector('#cover').style.display = 'flex';
         return { src: src, dest: dest, header: header };
       }
 
@@ -67,14 +70,13 @@
 
       function writeColumnCombos() {
         google.script.run
-          .withSuccessHandler(logSuccess)
+          .withSuccessHandler(writeSuccess)
           .withFailureHandler(logError)
           .writeColumnCombos(getOptions());
       }
 
-      function logSuccess(msg) {
-        console.log('success');
-        console.log(msg);
+      function writeSuccess(msg) {
+        document.querySelector('#cover').style.display = 'none';
       }
 
       function logError(msg) {
